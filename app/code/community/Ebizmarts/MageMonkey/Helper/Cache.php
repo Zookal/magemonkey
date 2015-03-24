@@ -26,8 +26,8 @@ class Ebizmarts_MageMonkey_Helper_Cache extends Mage_Core_Helper_Abstract
         'listMergeVars',
         'lists',
         'listsForEmail'
-    );    
-    
+    );
+
     /**
      * Cache tags unique param ID
      *
@@ -38,8 +38,8 @@ class Ebizmarts_MageMonkey_Helper_Cache extends Mage_Core_Helper_Abstract
         'listMemberInfo' => array('id', 'email_address'),
         'listMemberActivity' => array('id', 'email_address'),
         'listsForEmail' => array( 'email_address'),
-    );    
-    
+    );
+
     /**
      * Clear cache callbacks
      *
@@ -50,7 +50,7 @@ class Ebizmarts_MageMonkey_Helper_Cache extends Mage_Core_Helper_Abstract
         'listUnsubscribe' => array('listMemberInfo', 'listMembers', 'listMemberActivity',  'listsForEmail', 'lists'),
         'listSubscribe' => array('listMemberInfo', 'listMembers', 'listMemberActivity',  'listsForEmail', 'lists'),
         'listUpdateMember' => array('listMemberInfo', 'listMembers', 'listMemberActivity', 'listsForEmail', 'lists'),
-    );    
+    );
 
     /**
      * Retrieve cache key to save data in cache storage
@@ -71,8 +71,8 @@ class Ebizmarts_MageMonkey_Helper_Cache extends Mage_Core_Helper_Abstract
         }
 
         return md5($command . serialize($args) . $apiKey);
-    }    
-    
+    }
+
     /**
      * Clear data from Cache
      *
@@ -90,11 +90,11 @@ class Ebizmarts_MageMonkey_Helper_Cache extends Mage_Core_Helper_Abstract
         }
 
         return $this;
-    }    
-    
+    }
+
     /**
      * Return cache TAG for given command
-     * 
+     *
      * @param string $command
      * @param object $object Request object
      * @return array
@@ -104,13 +104,15 @@ class Ebizmarts_MageMonkey_Helper_Cache extends Mage_Core_Helper_Abstract
 
         if (isset($this->_cacheTagId[$command])) {
             foreach ($this->_cacheTagId[$command] as $param) {
-                $tag .= $object->requestParams[$param];
+                if(isset($object->requestParams[$param])){
+                    $tag .= $object->requestParams[$param];
+                }
             }
         }
 
         $tag = array(strtoupper($tag));
-        
+
         return $tag;
     }
-    
+
 }
