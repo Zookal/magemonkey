@@ -89,7 +89,7 @@ class Ebizmarts_Autoresponder_Model_Cron
                 $url = Mage::getModel('core/url')->setStore($storeId)->getUrl().'ebizautoresponder/autoresponder/unsubscribe?list=neworder&email='.$email.'&store='.$storeId;
                 $vars = array('tags'=>array($tags),'url'=>$url);
 
-                $mail = Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
+                Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
                 $translate->setTranslateInLine(true);
                 Mage::helper('ebizmarts_abandonedcart')->saveMail('new order',$email,$name,"",$storeId);
             }
@@ -141,7 +141,7 @@ class Ebizmarts_Autoresponder_Model_Cron
                     }
 
                 }
-                $mail = Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
+                Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
                 $translate->setTranslateInLine(true);
                 Mage::helper('ebizmarts_abandonedcart')->saveMail('happy birthday',$email,$name,$couponcode,$storeId);
             }
@@ -186,7 +186,7 @@ class Ebizmarts_Autoresponder_Model_Cron
                     if(Mage::helper('ebizmarts_autoresponder')->isSubscribed($email,'noactivity',$storeId)) {
                         $url = Mage::getModel('core/url')->setStore($storeId)->getUrl().'ebizautoresponder/autoresponder/unsubscribe?list=noactivity&email='.$email.'&store='.$storeId;
                         $vars = array('name' => $name,'tags'=>array($tags),'lastlogin'=>$lastVisited,'url'=>$url);
-                        $mail = Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
+                        Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
                         $translate->setTranslateInLine(true);
                         Mage::helper('ebizmarts_abandonedcart')->saveMail('no activity',$email,$name,"",$storeId);
                     }
@@ -243,7 +243,7 @@ class Ebizmarts_Autoresponder_Model_Cron
                     $name = $order->getCustomerFirstname().' '.$order->getCustomerLastname();
                     $url = Mage::getModel('core/url')->setStore($storeId)->getUrl().'ebizautoresponder/autoresponder/unsubscribe?list=related&email='.$email.'&store='.$storeId;
                     $vars = array('name' => $name,'tags'=>array($tags),'related'=>$allRelated,'url'=>$url);
-                    $mail = Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
+                    Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
                     $translate->setTranslateInLine(true);
                     Mage::helper('ebizmarts_abandonedcart')->saveMail('related products',$email,$name,"",$storeId);
                 }
@@ -309,7 +309,7 @@ class Ebizmarts_Autoresponder_Model_Cron
                 else {
                     $vars = array('name' => $name,'tags'=>array($tags),'products'=>$products,'ordernum'=>$orderNum,'url'=>$url);
                 }
-                $mail = Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
+                Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
                 $translate->setTranslateInLine(true);
                 Mage::helper('ebizmarts_abandonedcart')->saveMail('product review',$email,$name,"",$storeId);
             }
@@ -348,7 +348,7 @@ class Ebizmarts_Autoresponder_Model_Cron
                         $name       = $customer->getFirstname().' '.$customer->getLastname();
                         $url        = Mage::getModel('core/url')->setStore($storeId)->getUrl().'ebizautoresponder/autoresponder/unsubscribe?list=wishlist&email='.$email.'&store='.$storeId;
                         $vars       = array('name' => $name,'tags'=>array($tags),'products'=>$products,'url'=>$url);
-                        $mail       = Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
+                        Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
                         $translate->setTranslateInLine(true);
                         Mage::helper('ebizmarts_abandonedcart')->saveMail('wishlist',$email,$name,"",$storeId);
                     }
@@ -371,7 +371,7 @@ class Ebizmarts_Autoresponder_Model_Cron
                 $name       = $customer->getFirstname().' '.$customer->getLastname();
                 $url        = Mage::getModel('core/url')->setStore($storeId)->getUrl().'ebizautoresponder/autoresponder/unsubscribe?list=wishlist&email='.$email.'&store='.$storeId;
                 $vars       = array('name' => $name,'tags'=>array($tags),'products'=>$products,'url'=>$url);
-                $mail       = Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
+                Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
                 $translate->setTranslateInLine(true);
                 Mage::helper('ebizmarts_abandonedcart')->saveMail('wishlist',$email,$name,"",$storeId);
             }
@@ -412,7 +412,7 @@ class Ebizmarts_Autoresponder_Model_Cron
                         $name       = $customer->getFirstname().' '.$customer->getLastname();
                         $url        = Mage::getModel('core/url')->setStore($storeId)->getUrl().'ebizautoresponder/autoresponder/unsubscribe?list=visitedproducts&email='.$email.'&store='.$storeId;
                         $vars       = array('name' => $name,'tags'=>array($tags),'products'=>$products,'url'=>$url);
-                        $mail       = Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
+                        Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
                         $translate->setTranslateInLine(true);
                         Mage::helper('ebizmarts_abandonedcart')->saveMail('visitedproducts',$email,$name,"",$storeId);
                     }
@@ -462,7 +462,7 @@ class Ebizmarts_Autoresponder_Model_Cron
                 $name = 'customer';
                 $url        = Mage::getModel('core/url')->setStore($storeId)->getUrl().'ebizautoresponder/autoresponder/unsubscribe?list=visitedproducts&email='.$email.'&store='.$storeId;
                 $vars       = array('name' => $name,'tags'=>array($tags),'products'=>$products,'url'=>$url);
-                $mail       = Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
+                Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
                 $translate->setTranslateInLine(true);
                 Mage::helper('ebizmarts_abandonedcart')->saveMail('visitedproducts',$email,$name,"",$storeId);
             }
@@ -475,7 +475,7 @@ class Ebizmarts_Autoresponder_Model_Cron
                     $name = $customer->getFirstname() . ' ' . $customer->getLastname();
                     $url = Mage::getModel('core/url')->setStore($storeId)->getUrl() . 'ebizautoresponder/autoresponder/unsubscribe?list=visitedproducts&email=' . $email . '&store=' . $storeId;
                     $vars = array('name' => $name, 'tags' => array($tags), 'products' => $products, 'url' => $url);
-                    $mail = Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId, $sender, $email, $name, $vars, $storeId);
+                    Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId, $sender, $email, $name, $vars, $storeId);
                     $translate->setTranslateInLine(true);
                     Mage::helper('ebizmarts_abandonedcart')->saveMail('visitedproducts', $email, $name, "", $storeId);
                 }
@@ -486,7 +486,7 @@ class Ebizmarts_Autoresponder_Model_Cron
                 $name = 'customer';
                 $url        = Mage::getModel('core/url')->setStore($storeId)->getUrl().'ebizautoresponder/autoresponder/unsubscribe?list=visitedproducts&email='.$email.'&store='.$storeId;
                 $vars       = array('name' => $name,'tags'=>array($tags),'products'=>$products,'url'=>$url);
-                $mail       = Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
+                Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$email,$name,$vars,$storeId);
                 $translate->setTranslateInLine(true);
                 Mage::helper('ebizmarts_abandonedcart')->saveMail('visitedproducts',$email,$name,"",$storeId);
             }
@@ -608,7 +608,7 @@ class Ebizmarts_Autoresponder_Model_Cron
                             $url    = Mage::getModel('core/url')->setStore($storeId)->getUrl().'ebizautoresponder/autoresponder/unsubscribe?list=backtostock&email='.$_email.'&store='.$storeId;
                             $vars   = array('name' => $name,'tags'=>array($tags),'product'=>$_product,'url'=>$url);
 
-                            $mail   = Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$_email,$name,$vars,$storeId);
+                            Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId,$sender,$_email,$name,$vars,$storeId);
 
                             $translate->setTranslateInLine(true);
                             Mage::helper('ebizmarts_abandonedcart')->saveMail($mailType, $_email, $name, "", $storeId);
@@ -617,8 +617,6 @@ class Ebizmarts_Autoresponder_Model_Cron
                             $subscriber->setIsActive(0);
                             $subscriber->save();
                             Mage::helper('ebizmarts_autoresponder')->log($_email . ' notified sent for "' . $_product->getName() . '"');
-
-                            unset($mail);
                         }
 
                     }
@@ -726,6 +724,7 @@ class Ebizmarts_Autoresponder_Model_Cron
 
             $fromDate = date("Y-m-d");
             $toDate = date('Y-m-d', strtotime($fromDate. " + $couponexpiredays day"));
+            $action = $discount = "";
             if($coupontype == 1) {
                 $action = 'cart_fixed';
                 $discount = Mage::app()->getStore($store)->getCurrentCurrencyCode()."$couponamount";
