@@ -107,7 +107,7 @@ class Ebizmarts_AbandonedCart_Model_Cron
 
             $collection->addFieldToFilter('main_table.customer_email', array('neq' => ''));
             if(count($customergroups)) {
-                $collection->addFieldToFilter('main_table.customer_group_id', array('in', $customergroups));
+                $collection->addFieldToFilter('main_table.customer_group_id', array('in' => $customergroups));
             }
 
             // for each cart of the current run
@@ -188,7 +188,7 @@ class Ebizmarts_AbandonedCart_Model_Cron
                 $token = md5(rand(0,9999999));
                 $url = Mage::getModel('core/url')->setStore($storeId)->getUrl('',array('_nosid'=>true)).'ebizmarts_abandonedcart/abandoned/loadquote?id='.$quote->getEntityId().'&token='.$token;
 
-                $data = array('AbandonedURL'=>$url, 'AbandonedDate' => $quote->getUpdatedAt());
+                // $data = array('AbandonedURL'=>$url, 'AbandonedDate' => $quote->getUpdatedAt());
 
                 // send email
                 $senderid =  Mage::getStoreConfig(Ebizmarts_AbandonedCart_Model_Config::SENDER, $storeId);
@@ -235,7 +235,7 @@ class Ebizmarts_AbandonedCart_Model_Cron
                         }
                         Mage::app()->getTranslator()->init('frontend', true);
                         $translate = Mage::getSingleton('core/translate');
-                        $mail = Mage::getModel('core/email_template')->setTemplateSubject($mailsubject)->sendTransactional($templateId, $sender, $email, $name, $vars, $storeId);
+                        Mage::getModel('core/email_template')->setTemplateSubject($mailsubject)->sendTransactional($templateId, $sender, $email, $name, $vars, $storeId);
                         $translate->setTranslateInLine(true);
                         $quote2->setEbizmartsAbandonedcartCounter($quote2->getEbizmartsAbandonedcartCounter() + 1);
                         $quote2->setEbizmartsAbandonedcartToken($token);
@@ -279,7 +279,7 @@ class Ebizmarts_AbandonedCart_Model_Cron
                 $vars = array('couponcode' => $couponcode, 'name' => $pseudoName, 'tags' => array($tags));
             }
             $translate = Mage::getSingleton('core/translate');
-            $mail = Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId, $sender, $email, $pseudoName, $vars, $storeId);
+            Mage::getModel('core/email_template')->setTemplateSubject($mailSubject)->sendTransactional($templateId, $sender, $email, $pseudoName, $vars, $storeId);
             $item->setProcessed(1)->save();
             $translate->setTranslateInLine(true);
             Mage::helper('ebizmarts_abandonedcart')->saveMail('review coupon', $email, $pseudoName, $couponcode, $storeId);
