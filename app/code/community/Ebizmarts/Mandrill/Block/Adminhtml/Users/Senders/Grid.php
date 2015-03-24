@@ -30,7 +30,7 @@ class Ebizmarts_Mandrill_Block_Adminhtml_Users_Senders_Grid extends Mage_Adminht
         $storeId = Mage::app()->getStore()->getId();
         $api  = new Mandrill_Message(Mage::getStoreConfig(Ebizmarts_Mandrill_Model_System_Config::APIKEY,$storeId));
         $emails = $api->users->senders();
-        Mage::log($emails);
+
 		if($emails !== FALSE){
 //			$_emails = array();
 //			foreach($emails as $email){
@@ -119,7 +119,7 @@ class Ebizmarts_Mandrill_Block_Adminhtml_Users_Senders_Grid extends Mage_Adminht
             'index' => 'created_at',
             'filter' => false,
             'sortable' => false
-        ));        
+        ));
 
         return parent::_prepareColumns();
     }

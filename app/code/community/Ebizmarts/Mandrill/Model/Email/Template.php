@@ -105,7 +105,7 @@ class Ebizmarts_Mandrill_Model_Email_Template extends Mage_Core_Model_Email_Temp
             $email['html'] = $message;
 
         try {
-            $result = $mail->messages->send( $email );
+            $mail->messages->send( $email );
         }
         catch( Exception $e ) {
             Mage::logException( $e );
@@ -129,7 +129,7 @@ class Ebizmarts_Mandrill_Model_Email_Template extends Mage_Core_Model_Email_Temp
         }
         else {
             $storeId = Mage::app()->getStore()->getId();
-            Mage::log("store: $storeId API: ".Mage::getStoreConfig( Ebizmarts_Mandrill_Model_System_Config::APIKEY,$storeId ));
+            //Mage::log("store: $storeId API: ".Mage::getStoreConfig( Ebizmarts_Mandrill_Model_System_Config::APIKEY, $storeId ));
             $this->_mail = new Mandrill_Message(Mage::getStoreConfig( Ebizmarts_Mandrill_Model_System_Config::APIKEY,$storeId ));
             return $this->_mail;
         }

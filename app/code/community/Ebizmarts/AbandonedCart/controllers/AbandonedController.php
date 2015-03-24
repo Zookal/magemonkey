@@ -21,7 +21,6 @@ class Ebizmarts_AbandonedCart_AbandonedController extends Mage_Checkout_CartCont
         if(isset($params['id']))
         {
             //restore the quote
-//            Mage::log($params['id']);
 
             $quote = Mage::getModel('sales/quote')->load($params['id']);
             $url = Mage::getStoreConfig(Ebizmarts_AbandonedCart_Model_Config::PAGE,$quote->getStoreId());

@@ -64,7 +64,6 @@ class Ebizmarts_Autoresponder_AutoresponderController extends Mage_Core_Controll
                 $unsubscribe->setEmail($email)
                             ->setList($key)
                             ->setStoreId($storeId);
-                Mage::log($unsubscribe);
                 $unsubscribe->save();
             }
         }
