@@ -134,7 +134,6 @@ class Ebizmarts_MageMonkey_Model_Observer
 
         $store = is_null($observer->getEvent()->getStore()) ? Mage::app()->getDefaultStoreView()->getCode(): $observer->getEvent()->getStore();
 		$post   = Mage::app()->getRequest()->getPost();
-		$request = Mage::app()->getRequest();
 
         if(!Mage::getStoreConfig(Ebizmarts_MageMonkey_Model_Config::GENERAL_ACTIVE, $store)) {
             $config =  new Mage_Core_Model_Config();
@@ -146,13 +145,13 @@ class Ebizmarts_MageMonkey_Model_Observer
 			return $observer;
 		}
 		//Check if the api key exist
-		if(isset($post['groups']['general']['fields']['apikey']['value'])){
+        $apiKey = '';
+        $apiKeyIsSet = isset($post['groups']['general']['fields']['apikey']);
+		if($apiKeyIsSet && isset($post['groups']['general']['fields']['apikey']['value'])){
 			$apiKey = $post['groups']['general']['fields']['apikey']['value'];
-		}else{
-			//this case it's when we save the configuration for a particular store
-			if((string)$post['groups']['general']['fields']['apikey']['inherit'] == 1){
-				$apiKey = Mage::helper('monkey')->getApiKey();
-			}
+		}elseif($apiKeyIsSet && (string)$post['groups']['general']['fields']['apikey']['inherit'] == 1){
+            //this case it's when we save the configuration for a particular store
+            $apiKey = Mage::helper('monkey')->getApiKey();
 		}
 
 		if(!$apiKey){
