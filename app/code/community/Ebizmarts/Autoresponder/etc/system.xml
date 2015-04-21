@@ -12,7 +12,7 @@
         <ebizmarts_autoresponder translate="label" module="ebizmarts_autoresponder">
             <label><![CDATA[Autoresponder Emails]]></label>
             <tab>monkey</tab>
-            <sort_order>400</sort_order>
+            <sort_order>500</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
@@ -82,6 +82,18 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </active>
+                        <trigger translate="label">
+                            <label>Set email trigger</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ebizmarts_autoresponder/system_config_newordertrigger</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </trigger>
                         <days translate="label">
                             <label>Days after order</label>
                             <frontend_type>text</frontend_type>
@@ -91,8 +103,24 @@
                             <show_in_store>1</show_in_store>
                             <depends>
                                 <active>1</active>
+                                <trigger separator=",">0,2</trigger>
                             </depends>
                         </days>
+                        <order_status translate="label comment">
+                            <label>Order Status</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_order_status</source_model>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>
+                                <![CDATA[The email will be sent when order gets to the selected status.]]></comment>
+                            <depends>
+                                <active>1</active>
+                                <trigger separator=",">1,2</trigger>
+                            </depends>
+                        </order_status>
                         <subject translate="label">
                             <label>Mail Subject</label>
                             <frontend_type>text</frontend_type>
@@ -142,6 +170,19 @@
                                 <active>1</active>
                             </depends>
                         </customer>
+                        <cron-time translate="label">
+                            <label>Hour to send emails</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ebizmarts_autoresponder/system_config_hours</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                                <trigger>0</trigger>
+                            </depends>
+                        </cron-time>
                     </fields>
                 </neworder>
                 <related translate="label comment">
@@ -248,6 +289,18 @@
                                 <active>1</active>
                             </depends>
                         </max-related>
+                        <cron-time translate="label">
+                            <label>Hour to send emails</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ebizmarts_autoresponder/system_config_hours</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </cron-time>
                     </fields>
                 </related>
                 <review translate="label comment">
@@ -259,7 +312,8 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <hint>
-                            <frontend_model>ebizmarts_autoresponder/adminhtml_system_config_review_fieldset_hint</frontend_model>
+                            <frontend_model>ebizmarts_autoresponder/adminhtml_system_config_review_fieldset_hint
+                            </frontend_model>
                             <sort_order>0</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -406,7 +460,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[How do you want to count reviews<br>Keep in mind, <em>General</em> only work for registered customers]]></comment>
+                            <comment>
+                                <![CDATA[How do you want to count reviews<br>Keep in mind, <em>General</em> only work for registered customers]]></comment>
                             <depends>
                                 <active>1</active>
                                 <coupon>1</coupon>
@@ -433,7 +488,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[<em>Each</em>: every "Required Review qty" multiple is reached, a new coupon will be sent.<br><em>Only once</em>: a coupon is sent only the first time that "Required Review qty" is reached.<br><em>Specific</em>: same as <em>Each</em> but also defines a fixed qty of coupons to be sent.]]></comment>
+                            <comment>
+                                <![CDATA[<em>Each</em>: every "Required Review qty" multiple is reached, a new coupon will be sent.<br><em>Only once</em>: a coupon is sent only the first time that "Required Review qty" is reached.<br><em>Specific</em>: same as <em>Each</em> but also defines a fixed qty of coupons to be sent.]]></comment>
                             <depends>
                                 <active>1</active>
                                 <coupon>1</coupon>
@@ -461,7 +517,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[How many items needs to be reviewed per order to win a coupon (0 means all items requires a review).]]></comment>
+                            <comment>
+                                <![CDATA[How many items needs to be reviewed per order to win a coupon (0 means all items requires a review).]]></comment>
                             <depends>
                                 <active>1</active>
                                 <coupon>1</coupon>
@@ -475,7 +532,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[Order needs to have at least this quantity of items to apply for a coupon (0 means all Orders applies, no matter how many items were ordered).]]></comment>
+                            <comment>
+                                <![CDATA[Order needs to have at least this quantity of items to apply for a coupon (0 means all Orders applies, no matter how many items were ordered).]]></comment>
                             <depends>
                                 <active>1</active>
                                 <coupon>1</coupon>
@@ -614,6 +672,18 @@
                                 <automatic>2</automatic>
                             </depends>
                         </couponlabel>
+                        <cron-time translate="label">
+                            <label>Hour to send emails</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ebizmarts_autoresponder/system_config_hours</source_model>
+                            <sort_order>170</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </cron-time>
                     </fields>
                 </review>
                 <birthday translate="label comment">
@@ -625,7 +695,8 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <hint>
-                            <frontend_model>ebizmarts_autoresponder/adminhtml_system_config_birthday_fieldset_hint</frontend_model>
+                            <frontend_model>ebizmarts_autoresponder/adminhtml_system_config_birthday_fieldset_hint
+                            </frontend_model>
                             <sort_order>0</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -832,6 +903,18 @@
                                 <automatic>2</automatic>
                             </depends>
                         </couponlabel>
+                        <cron-time translate="label">
+                            <label>Hour to send emails</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ebizmarts_autoresponder/system_config_hours</source_model>
+                            <sort_order>170</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </cron-time>
                     </fields>
                 </birthday>
                 <noactivity translate="label comment">
@@ -913,6 +996,18 @@
                                 <active>1</active>
                             </depends>
                         </customer>
+                        <cron-time translate="label">
+                            <label>Hour to send emails</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ebizmarts_autoresponder/system_config_hours</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </cron-time>
                     </fields>
                 </noactivity>
                 <wishlist translate="label comment">
@@ -1002,6 +1097,18 @@
                                 <active>1</active>
                             </depends>
                         </customer>
+                        <cron-time translate="label">
+                            <label>Hour to send emails</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ebizmarts_autoresponder/system_config_hours</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </cron-time>
                     </fields>
                 </wishlist>
                 <visitedproducts translate="label comment">
@@ -1107,6 +1214,18 @@
                                 <active>1</active>
                             </depends>
                         </max-visited>
+                        <cron-time translate="label">
+                            <label>Hour to send emails</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ebizmarts_autoresponder/system_config_hours</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </cron-time>
                     </fields>
                 </visitedproducts>
                 <backtostock>
@@ -1118,7 +1237,8 @@
                     <show_in_store>1</show_in_store>
                     <fields>
                         <hint>
-                            <frontend_model>ebizmarts_autoresponder/adminhtml_system_config_backtostock_fieldset_hint</frontend_model>
+                            <frontend_model>ebizmarts_autoresponder/adminhtml_system_config_backtostock_fieldset_hint
+                            </frontend_model>
                             <sort_order>0</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -1182,6 +1302,18 @@
                                 <active>1</active>
                             </depends>
                         </allow_guests>
+                        <cron-time translate="label">
+                            <label>Hour to send emails</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ebizmarts_autoresponder/system_config_hours</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <active>1</active>
+                            </depends>
+                        </cron-time>
                     </fields>
                 </backtostock>
             </groups>
