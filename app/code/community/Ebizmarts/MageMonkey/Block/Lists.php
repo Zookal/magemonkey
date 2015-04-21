@@ -95,9 +95,9 @@ class Ebizmarts_MageMonkey_Block_Lists extends Mage_Core_Block_Template
 					$this->_myLists = $api->listsForEmail($this->_getEmail());
 				}
 
-				if($listData['total'] > 0){
+				if(isset($listData['total']) && $listData['total'] > 0){
 					$showRealName = $this->helper('monkey')->config('showreallistname');
-					if($showRealName) {
+					if($showRealName && isset($listData['data'])) {
 						$listName = $listData['data'][0]['name'];
 					}else{
 						$listName = $this->__('General Subscription');

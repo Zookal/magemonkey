@@ -5,6 +5,9 @@ $myLists       = $this->getSubscribedLists();
 $generalList   = $this->getGeneralList();
 $auto  = (($check === 1) or ($check === 3) or ($check === 4));
 $force = $this->getForce();
+if (empty($generalList) || count($generalList) < 1){
+    return;
+}
 ?>
 <script type="text/javascript">
     addSubscribeToPost = function (element){
